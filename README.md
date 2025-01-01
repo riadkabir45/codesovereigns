@@ -9,7 +9,7 @@
 - naimjeem
 
 ## Project Description
-Add your project description here.
+A premier online retailer specializing in the provision of high-quality computer components. We offer a comprehensive selection of CPUs, GPUs, motherboards, RAM, storage drives, peripherals, and cooling solutions from leading manufacturers. Our commitment to customer satisfaction is reflected in our competitive pricing, informative product descriptions, and exceptional customer support.
 
 ## Getting Started
 1. Clone the repository
