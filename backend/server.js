@@ -1,7 +1,6 @@
 import express from "express";
 import data from './config/init.js';
 import Laptop from "./models/Laptop.js";
-import './pdi/Laptop.js';
 import cors from 'cors';
 
 const app = express();

@@ -6,34 +6,37 @@ import getRandomValueExcludingKeys from '../config/gen_funcs.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const range = 10;
 
-await fs.readFile(join(__dirname,'laptops.json'),'utf-8',(err,data) => {
-    if(err){
-        console.error('Error reading laptops.json: ', err);
-    } else {
-        try {
-            const laptops = JSON.parse(data);
-            const lst = ['Processor Model','RAM','RAM Type','Display Resolution','Display Size'];
-            
-            laptops.slice(0,10).forEach(async laptop => {
-                await Laptop.create({
-                    image: laptop['main_image'],
-                    name: laptop['name'],
-                    price: laptop['price'],
-                    processor: laptop['Specifications']['Processor Model'],
-                    ram: `${laptop['Specifications']['RAM']} ${laptop['Specifications']['RAM Type']}`,
-                    display: `${laptop['Specifications']['Display Resolution']} ${laptop['Specifications']['Display Size']}`,
-                    feature: laptop['Specifications'][getRandomValueExcludingKeys(laptop['Specifications'],lst)]
-                });
+async function seedLaptops() {
+    try {
+        const data = await fs.promises.readFile(join(__dirname, 'laptops.json'), 'utf-8'); 
+        const laptops = JSON.parse(data);
+        const lst = ['Processor Model', 'RAM', 'RAM Type', 'Display Resolution', 'Display Size'];
+
+        const offset = (laptops.length - range - 1)*Math.random();
+        
+        console.log(laptops.slice(offset, offset + range));
+        
+
+        for (const laptop of laptops.slice(offset, offset + range)) { 
+            const { main_image, name, price, Specifications } = laptop;
+
+            await Laptop.create({
+                image: laptop['main_image'],
+                name: laptop['name'],
+                price: laptop['price'],
+                processor: Specifications['Processor Model'] || Specifications['Processor'],
+                ram: `${Specifications['RAM']} ${Specifications['RAM Type']}`,
+                display: `${Specifications['Display Resolution']} ${Specifications['Display Size']}`,
+                feature: Specifications[getRandomValueExcludingKeys(Specifications, lst)],
             });
-        } catch (error) {
-            console.error('Error parsing laptops.json: ', error);
         }
+
+        console.log('Laptops seeded successfully.');
+    } catch (error) {
+        console.error('Error seeding laptops:', error);
     }
-})
+}
 
-
-// const newLaptop = await Laptop.create({
-//     username: 'riadkabir45',
-//     password: 'riadkabir45',
-//   });
+export default seedLaptops;
