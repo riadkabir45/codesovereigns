@@ -24,6 +24,7 @@ router.get('/laptops', async (req, res) =>  {
 });
 
 
+console.log("Hello");
 app.use('/api',router);
 
 app.listen(port, () => {
