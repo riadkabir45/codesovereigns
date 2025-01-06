@@ -29,6 +29,14 @@ Laptop.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    price:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    feature:{
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 },{
     sequelize,
     modelName: "laptop"

@@ -2,13 +2,14 @@ import express from "express";
 import data from './config/init.js';
 import Laptop from "./models/Laptop.js";
 import './pdi/Laptop.js';
+import cors from 'cors';
 
 const app = express();
 const router = express.Router();
 const port = 5000;
 
 app.use(express.json());
-
+app.use(cors())
 
 app.get('/', async (req, res) =>  {
   res.send('Hello from the Express.js server by erza!');
