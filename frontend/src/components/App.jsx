@@ -1,7 +1,7 @@
 import React from "react";
 import database from "./database";
 import Card from "./Card";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function createCard(props){
     return(
@@ -22,15 +22,24 @@ function App(){
 
     const [laptops,setLaptops] = useState([]);
 
-    fetch('http://localhost:5000/api/laptops').then(response => {
-        if(response.ok){
-            return response.json();
-        }else{
-            console.error("Error fetching product list:");
-        }
-    }).then(data => {
-        setLaptops(data['data']);
-    })
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:5000/api/laptops');
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setLaptops(data['data']);
+          } catch (error) {
+            console.error("Error fetching product list:", error); 
+          }
+        };
+    
+        const intervalId = setInterval(fetchData, 5000); 
+    
+        return () => clearInterval(intervalId); 
+      }, []);
 
     console.log(laptops);
     
