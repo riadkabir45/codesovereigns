@@ -16,8 +16,6 @@ async function seedLaptops() {
 
         const offset = (laptops.length - range - 1)*Math.random();
         
-        console.log(laptops.slice(offset, offset + range));
-        
 
         for (const laptop of laptops.slice(offset, offset + range)) { 
             const { main_image, name, price, Specifications } = laptop;
