@@ -1,0 +1,29 @@
+{
+  "name": "codesovereigns",
+  "version": "1.0.0",
+  "description": "A modern computer hardware store",
+  "homepage": "https://github.com/Learnathon-By-Geeky-Solutions/codesovereigns#readme",
+  "bugs": {
+    "url": "https://github.com/Learnathon-By-Geeky-Solutions/codesovereigns/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Learnathon-By-Geeky-Solutions/codesovereigns.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

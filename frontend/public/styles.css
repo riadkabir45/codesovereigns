@@ -1,0 +1,109 @@
+.heading{
+    font-size: 2em;
+    color: #000; /* Pure black color for the title */
+    text-align: left; /* Center-aligned text */
+    margin: 20px 25px; /* Standard gap */
+    font-family: 'Arial', 'Helvetica', sans-serif; /* Use Arial, Helvetica, or generic sans-serif font */
+}
+
+/* Container for the products */
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the start */
+    padding: 20px;
+    background-color: #f0f0f0; /* Light gray background for the container */
+    font-family: 'Arial', 'Helvetica', sans-serif; /* Use Arial, Helvetica, or generic sans-serif font */
+    align-content: flex-start; /* Align content to the start */
+}
+
+/* General styling for the card container */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+    flex: 1 1 calc(25% - 40px); /* Adjust width to fit 4 cards per row */
+    box-sizing: border-box;
+    font-family: 'Arial', 'Helvetica', sans-serif; /* Use Arial, Helvetica, or generic sans-serif font */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the product image */
+.homepage-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+}
+
+/* Styling for the product heading */
+.product-heading {
+    font-size: 1.25em;
+    margin: 15px 0 10px;
+    color: #000; /* Pure black color for the title */
+    cursor: pointer;
+    text-align: left; /* Left-aligned text */
+    font-weight: bold; /* Bold text */
+}
+
+/* Styling for the product description list */
+.product-description-list {
+    padding-left: 20px; /* Indent bullet points */
+    margin: 0; /* Remove default margin */
+}
+
+/* Styling for the product description */
+.product-description {
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.9); /* 90% opacity black color for the description */
+    margin: 5px 0;
+    text-align: left; /* Left-aligned text */
+    list-style-type: disc; /* Bullet point before each product */
+}
+
+/* Styling for the product price */
+.product-price {
+    font-size: 1.5em; /* Bigger font size */
+    color: rgb(201, 5, 5); /* Red color for the price */
+    text-align: center; /* Center-aligned text */
+    font-weight: bold; /* Bold text */
+    margin-top: 20px; /* Standard gap */
+}
+
+/* Styling for the Buy Now button */
+
+.buy-now {
+    font-size: 1em; /* Bigger font size */
+    color: #0476e1; /* White text color */
+    background-color: #79797966; /* Blue background color */
+    text-align: center; /* Center-aligned text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px; /* Standard gap */
+    cursor: pointer;
+}
+
+/* Styling for the Add to Wishlist button */
+.add-to-wishlist {
+    font-size: 1em; /* Bigger font size */
+    color: #000a14; /* Blue text color */
+    text-align: center; /* Center-aligned text */
+    margin-top: 20px; /* Standard gap */
+    cursor: pointer;
+}
+
+/* Styling for the horizontal line */
+.horizontal-line {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 20px 0; /* Standard gap */
+}
