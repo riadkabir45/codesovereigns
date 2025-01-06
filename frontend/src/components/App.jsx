@@ -36,7 +36,7 @@ function App(){
           }
         };
     
-        const intervalId = setInterval(fetchData, 5000); 
+        const intervalId = setInterval(fetchData, 500); 
     
         return () => clearInterval(intervalId); 
       }, []);
