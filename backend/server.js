@@ -1,5 +1,4 @@
 import express from "express";
-import data from './config/init.js';
 import Laptop from "./models/Laptop.js";
 import cors from 'cors';
 

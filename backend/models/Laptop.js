@@ -42,6 +42,6 @@ Laptop.init({
     modelName: "laptop"
 });
 
-await Laptop.sync({ force: true });
+await Laptop.sync({ force: false });
 
 export default Laptop;
