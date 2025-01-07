@@ -6,7 +6,7 @@ import getRandomValueExcludingKeys from '../config/gen_funcs.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const range = 10;
+const range = 88;
 
 async function seedLaptops() {
     try {
