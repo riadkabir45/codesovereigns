@@ -18,9 +18,7 @@ function ProductSpecification() {
                     <Checkout />
                 </div>
             </div>
-            <div className="section">
-                <Specification />
-            </div>
+            <Specification />
         </div>
     );
 }

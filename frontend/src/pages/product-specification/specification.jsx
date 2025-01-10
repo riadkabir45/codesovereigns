@@ -9,9 +9,12 @@ function Specification() {
             <h3 className="specification-heading">Specifications:</h3>
             <ul className="specification">
                 {Object.entries(specifications).map(([key, value]) => (
-                    <li key={key}>
-                        <strong>{key}:</strong> {value}
-                    </li>
+                    <div>
+                        <li key={key} className="specification-item">
+                            <strong>{key}:</strong> {value}
+                        </li>
+                        <hr className="horizontal-line" />
+                    </div>
                 ))}
             </ul>
         </div>
