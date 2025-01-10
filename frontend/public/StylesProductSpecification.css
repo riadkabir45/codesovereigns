@@ -1,0 +1,150 @@
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Product details layout */
+.product-details {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+/* Left column - Image */
+.product-details .left-column {
+    flex: 1;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.image:hover {
+    transform: scale(1.02);
+}
+
+/* Right column */
+.product-details .right-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Title styling */
+.title {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+}
+
+/* Key features styling */
+.key-features {
+    font-size: 1.1em;
+    color: #34495e;
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.key-features li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.key-features li::before {
+    content: "•";
+    color: #0476e1;
+    font-weight: bold;
+    position: absolute;
+    left: -20px;
+}
+
+/* Checkout section styling */
+.checkout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border: 1px solid #e9ecef;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Price styling */
+.price {
+    font-size: 1.8em;
+    color: #e74c3c;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Button styling */
+.buy-now, .add-to-wishlist {
+    padding: 12px 28px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.buy-now {
+    background: linear-gradient(145deg, #0476e1, #0356a1);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(4, 118, 225, 0.2);
+}
+
+.buy-now:hover {
+    background: linear-gradient(145deg, #0356a1, #024884);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(4, 118, 225, 0.3);
+}
+
+.add-to-wishlist {
+    border: 2px solid #0476e1;
+    color: #0476e1;
+    background: white;
+    margin-left: 15px;
+}
+
+.add-to-wishlist:hover {
+    background-color: #0476e1;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Specification section styling */
+.specification {
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 12px;
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* General body styling */
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 30px;
+    line-height: 1.6;
+    color: #2c3e50;
+}
