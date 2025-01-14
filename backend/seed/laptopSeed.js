@@ -14,14 +14,11 @@ async function seedLaptops() {
         
         for (const laptop of laptops.slice(offset, offset + range)) { 
             const { main_image, name, price, Specifications } = laptop;
-            const features = Object.entries(Specifications);
             
-            
-
             await Laptop.create({
-                image: laptop['main_image'],
-                name: laptop['name'],
-                price: laptop['price'],
+                image: main_image,
+                name: name,
+                price: price,
                 features: Object.entries(Specifications)
             });
         }
