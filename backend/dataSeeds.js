@@ -1,7 +1,6 @@
 
-import data from './config/init.js';
-import seedLaptop from './pdi/Laptop.js';
-import sequelize from './config/init.js';
+import seedLaptop from './seed/Laptop.js';
+import sequelize from './config/dbinit.js';
 
 try {
     const models = Object.keys(sequelize.model);

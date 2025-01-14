@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../config/init.js";
+import sequelize from "../config/dbinit.js";
 
 class Laptop extends Model {}
 
