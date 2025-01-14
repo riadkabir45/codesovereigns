@@ -1,7 +1,6 @@
-import Laptop from '../models/Laptop.js';
+import Laptop from '../model/Laptop.js';
 import fs from 'fs';
 import { join } from 'path';
-import { getRandomValueExcludingKeys } from '../config/generalFunctions.js';
 import { root } from '../config/generalFunctions.js';
 
 const range = 10;
@@ -15,15 +14,15 @@ async function seedLaptops() {
         
         for (const laptop of laptops.slice(offset, offset + range)) { 
             const { main_image, name, price, Specifications } = laptop;
+            const features = Object.entries(Specifications);
+            
+            
 
             await Laptop.create({
                 image: laptop['main_image'],
                 name: laptop['name'],
                 price: laptop['price'],
-                processor: Specifications['Processor Model'] || Specifications['Processor'],
-                ram: `${Specifications['RAM']} ${Specifications['RAM Type']}`,
-                display: `${Specifications['Display Resolution']} ${Specifications['Display Size']}`,
-                feature: Specifications[getRandomValueExcludingKeys(Specifications, lst)],
+                features: Object.entries(Specifications)
             });
         }
 

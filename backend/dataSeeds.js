@@ -1,5 +1,5 @@
 
-import seedLaptop from './seed/Laptop.js';
+import seedLaptop from './seed/laptopSeed.js';
 import sequelize from './config/dbinit.js';
 
 try {
@@ -8,6 +8,8 @@ try {
         const Model = sequelize.model[model];
         Model.drop();
     });
+    await sequelize.sync({ force: true }); 
+
 } catch (error) {
     console.error("Error seeding data: ",error);
     

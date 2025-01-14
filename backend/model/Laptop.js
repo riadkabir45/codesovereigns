@@ -17,25 +17,14 @@ Laptop.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    processor:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    ram:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    display:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     price:{
         type: DataTypes.STRING,
         allowNull: true
     },
-    feature:{
-        type: DataTypes.STRING,
-        allowNull: false
+    features:{
+        type: DataTypes.JSON,
+        allowNull: true,
+        defaultValue: []
     }
 },{
     sequelize,
