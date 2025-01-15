@@ -21,6 +21,10 @@ Laptop.init({
         type: DataTypes.STRING,
         allowNull: true
     },
+    description:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     features:{
         type: DataTypes.JSON,
         allowNull: true,

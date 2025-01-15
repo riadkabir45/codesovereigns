@@ -13,8 +13,8 @@ async function seedLaptops() {
         const offset = (laptops.length - range - 1)*Math.random();
         
         for (const laptop of laptops.slice(offset, offset + range)) { 
-            const { main_image: image, name, price, Specifications } = laptop;
-            const argumentObj = {image , name, price, features: Object.entries(Specifications)};
+            const { main_image: image, name, price, description, Specifications } = laptop;
+            const argumentObj = {image , name, price, description, features: Object.entries(Specifications)};
             await Laptop.create(argumentObj);
         }
 
