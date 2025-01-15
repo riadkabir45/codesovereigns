@@ -10,7 +10,8 @@ async function seedLaptops() {
         const data = await fs.promises.readFile(join(root, 'sample', 'laptops.json'), 'utf-8'); 
         const laptops = JSON.parse(data);
         const lst = ['Processor Model', 'RAM', 'RAM Type', 'Display Resolution', 'Display Size'];
-        const offset = (laptops.length - range - 1)*Math.random();
+        const randomNumber = Math.random()
+        const offset = (laptops.length - range - 1)*randomNumber;
         
         for (const laptop of laptops.slice(offset, offset + range)) { 
             const { main_image: image, name, price, description, Specifications } = laptop;
