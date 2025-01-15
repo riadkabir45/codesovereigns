@@ -1,13 +1,13 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, UUIDV4 } from "sequelize";
 import sequelize from "../config/dbinit.js";
 
 class Laptop extends Model {}
 
 Laptop.init({
     id:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true
+        defaultValue: UUIDV4
     },
     image:{
         type: DataTypes.STRING,
