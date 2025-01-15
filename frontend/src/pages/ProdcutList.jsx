@@ -1,19 +1,22 @@
 import React from "react";
-import Card from "./Card";
 import { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 function createCard(props){
     return(
-        <Card 
-            key={props.id}
-            imgURL={props.image}
-            name={props.name}
-            Processor={props.processor}
-            Ram={props.ram}
-            Display={props.display}
-            Features={props.feature}
-            Price={props.price}
-        />
+      <Col key={props.id}>
+        <Card className="h-100">
+          <Card.Img variant="top" src={props.image} alt={props.name} />
+          <Card.Body>
+            <Card.Title>{props.name}</Card.Title>
+          </Card.Body>
+          <Card.Footer className="d-flex justify-content-between align-items-center">
+          <Card.Text>${props.price}</Card.Text>
+            <a href={"/product/"+props.id} className="btn btn-primary">View Details</a>
+          </Card.Footer>
+        </Card>
+      </Col>
     );
 }
 
@@ -40,14 +43,14 @@ function ProductDisplay(){
         return () => clearInterval(intervalId); 
       }, []);
 
-    console.log(laptops);
     
 
     return(
-        <div>
-            <h1 className="heading">Laptops:</h1>
-            <div className="products-container">{laptops.map(createCard)}</div>
-        </div>
+      <Container>
+      <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+        {laptops.map(createCard)}
+      </Row>
+    </Container>
     );
 }
 

@@ -14,8 +14,8 @@ function Card(props){
             <hr className="horizontal-line" />
             <p className="product-price">{props.Price}</p>
             <p className="buy-now">Buy Now</p>
+            <p className="view">View</p>
             <p className="add-to-wishlist">Add to Wishlist</p>
-            
         </div>
     );
 }
