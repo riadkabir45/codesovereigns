@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "dinit": "node dataSeeds.js",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --collect-coverage"
   },
   "dependencies": {
     "cors": "^2.8.5",

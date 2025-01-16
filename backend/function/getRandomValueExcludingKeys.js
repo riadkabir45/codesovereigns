@@ -4,7 +4,7 @@ const getRandomValueExcludingKeys = (dict, excludedKeys) => {
     const keys = Object.keys(dict).filter(key => !excludedKeys.includes(key));
   
     if (keys.length === 0) {
-      throw new Error("No valid keys found in the dictionary.");
+      return null;
     }
   
     const randomIndex = randomInt(0, keys.length); 

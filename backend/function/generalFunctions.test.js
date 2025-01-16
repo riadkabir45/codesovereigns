@@ -13,4 +13,7 @@ test('RandomKey: get random dictionary key excluding keys',() => {
         expect(key).not.toBe('line3');
         expect(Object.keys(testDict)).toContain('line3');
     }
+    const emptyDict = {}
+    const key = getRandomValueExcludingKeys(emptyDict,['line3']);
+    expect(key).toBeNull();
 })
