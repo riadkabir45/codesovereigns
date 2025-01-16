@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { Container, Row, Col, Spinner, Image, Button } from 'react-bootstrap';
 
 
@@ -30,7 +31,7 @@ function ProductSpecification() {
     },[]);
     
     
-    if(product == undefined || product.features == undefined)
+    if(!product?.features)
         return (
             <Container className="d-flex justify-content-center align-items-center vh-100">
               <Spinner animation="border" role="status">
@@ -55,9 +56,10 @@ function ProductSpecification() {
                     </div>
                     <h3 className="mt-5">Specifications:</h3>
                     <ul className="list-group list-group-flush">
-                    {product.features ? (
+                    {
+                        product.features ? (
                         product.features.map(([key, value], index) => (
-                        <li key={index} className="list-group-item">
+                        <li key={uuidv4()} className="list-group-item">
                             <strong>{key}:</strong> {value}
                         </li>
                         ))
