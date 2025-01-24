@@ -1,6 +1,7 @@
 import express from 'express';
 import pg from "pg";
 // import bodyParser from "body-parser";
+import bcrypt from "bcrypt";
 
 const app = express();
 //Connecting with database.
@@ -36,8 +37,15 @@ app.post("/register", async(req, res) => {
         if(checking.rows.length >0){
             res.send("You already have an account. Try log in.");
         }else{ // if not then save date in database.
-            await db.query("insert into users (email, password) values ($1, $2)",[email, password]);
-            res.render("user.ejs");
+            bcrypt.hash(password, 10, async (err, hash) => {  // using bcrypt for salting.
+                if (err) {
+                  console.error("Error hashing password:", err);
+                } else {
+                  await db.query(  //hash will be stored in database not password.
+                    "INSERT INTO users (email, password) VALUES ($1, $2)",[email, hash]);
+                  res.render("user.ejs");
+                }
+            });
         }
     }catch(err){
         console.log(err);
@@ -54,12 +62,18 @@ app.post("/login", async (req, res) => {
         // checking user is registered or not.
         if(checking.rows.length >0){ // if registered then compare storedpassword and given password.
             const storedpassword = checking.rows[0].password;
-
-            if(password === storedpassword){
-                res.render("user.ejs");
-            }else{
-                res.send("Incorrect Pasword");
-            }
+            // compare- first user given password will be converted into hash then compare with stored hash.
+            bcrypt.compare(password, storedpassword, (err, result) => {
+                if (err) {
+                  console.error("Error comparing passwords:", err);
+                } else {
+                  if (result) {
+                    res.render("user.ejs");
+                  } else {
+                    res.send("Incorrect Password");
+                  }
+                }
+              });
         }else{ // If user is not registered.
             res.send("You are not registered. Please register first");
         }
