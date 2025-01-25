@@ -1,7 +1,7 @@
 import Laptop from '../model/Laptop.js';
 import fs from 'fs';
 import { join } from 'path';
-import root from '../config/function/root.js';
+import root from '../function/root.js';
 
 const range = 10;
 
