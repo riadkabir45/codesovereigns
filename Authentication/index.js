@@ -6,12 +6,17 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv"; // to use .env file
+import GoogleStrategy from "passport-google-oauth20";
 
 const app = express();
 env.config();
 
-
-app.use(
+// explanation of how sesssion or local strategy works.
+// first we have to create a session for user. after that create serializeUser and deserializeUser function to indicate what data should be stored in session.
+// Then code goes to get request of /user page.
+// Then check if user is authenticated or not. If user is authenticated then render user.ejs page not login page.
+// For checking it will go to passport.authenticate("local") middleware. In this middleware it will check if user is authenticated or not.
+app.use(  // creating session for user.
     session({
         secret: process.env.SESSION_SECRET,
         resave: process.env.SESSION_RESAVE,
@@ -46,6 +51,15 @@ app.get('/register', (req, res) => {
     res.render("register.ejs");
 });
 
+app.get("/logout", (req, res) => {// logout function is used to remove the user information from the session.
+    req.logout(function (err) { 
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/login");
+    });
+  });
+
 // if user is authenticated (he prevoustly login and his information is saved as cookies) then only he can see the secrets page.
 app.get("/user", (req, res) => {
     // console.log(req.user);
@@ -56,6 +70,20 @@ app.get("/user", (req, res) => {
     }
   });
 
+  // passport.authenticate("google") is a middleware that authenticates the user using the google strategy.
+app.get("/auth/google", 
+    passport.authenticate("google", { 
+        scope: ["profile","email"], // scope is an array of permissions that the application is requesting from the user.
+    }));
+
+app.get(  // if user press continue then redirect to /auth/google/user page.
+    "/auth/google/user",
+    passport.authenticate("google", { // Then it goes to google strategy that defined bellow in the passport.use() function.
+        successRedirect: "/user", // if callback function returns user then redirect to /user page.
+        failureRedirect: "/login", // if callback function returns false then redirect to /login page.
+        })
+    );
+
 // passport.authenticate("local") is a middleware that authenticates the user using the local strategy.
 // if the user is authenticated, it will redirect to the user page.
 // if the user is not authenticated, it will redirect to the login page.
@@ -63,8 +91,8 @@ app.get("/user", (req, res) => {
 app.post(
     "/login",
     passport.authenticate("local", {
-      successRedirect: "/user", // if callback function returns user then redirect to / user page.
-      failureRedirect: "/login", // if callback function returns false then redirect to /login page.
+      successRedirect: "/user", // if callback function of serialized and deserilazid returns user then redirect to / user page.
+      failureRedirect: "/login", // if callback function of serialized and deserilazid returns null then redirect to /login page.
     })
   );
 
@@ -83,7 +111,7 @@ app.post("/register", async(req, res) => {
                 if (err) {
                   console.error("Error hashing password:", err);
                 } else {
-                  await db.query(  //hash will be stored in database not password.
+                    const result = await db.query(  //hash will be stored in database not password.
                     "INSERT INTO users (email, password) VALUES ($1, $2)",[email, hash]);
                   res.render("user.ejs");
                   const user = result.rows[0];
@@ -100,7 +128,8 @@ app.post("/register", async(req, res) => {
 });
 
 
-passport.use( // local strategy is used to authenticate users using a username and password. 
+passport.use( "local",
+    // local strategy is used to authenticate users using a username and password. 
     new Strategy(async function verify(username, password, cb) { // username and password are the fields that are sent from the login form.
       try { // In ejs file we have used name="username" and name="password" for username and password fields. this comes directly from there.
         const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
@@ -120,17 +149,49 @@ passport.use( // local strategy is used to authenticate users using a username a
                 return cb(null, user); // if password is correct then return user to the callback function.
               } else {
                 //Did not pass password check
-                return cb(null, false); // if password is incorrect then return false to the callback function.
+                return cb("Wrong Password. Try again."); // if password is incorrect then return false to the callback function.
               }
             }
           });
         } else {
-          return cb("User not found");
+          return cb("User not found. Register first."); // if user is not found in database then return error to the callback function.
         }
       } catch (err) {
         console.log(err);
       }
     })
+  );
+
+//Configuring Google Strategy
+passport.use(
+    "google",
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://localhost:3000/auth/google/user",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        try {
+          
+          const result = await db.query("SELECT * FROM users WHERE email = $1", [
+            profile.emails[0].value,
+          ]); 
+          if (result.rows.length === 0) {
+            const newUser = await db.query(
+              "INSERT INTO users (email, password) VALUES ($1, $2)",
+              [profile.emails[0].value, "google"]
+            );console.log(newUser)
+            return cb(null, newUser.rows[0]);
+          } else {
+            return cb(null, result.rows[0]);
+          }
+        } catch (err) {
+          return cb(err);
+        }
+      }
+    )
   );
 
   // serializeUser is a function that is called when a user logs in. It determines what data from the user object should be stored in the session.
