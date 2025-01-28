@@ -5,7 +5,7 @@
 - riadkabir45
 - mony820
 
-Hellow!
+Hello!
 
 ## Mentor
 - naimjeem
