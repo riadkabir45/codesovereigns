@@ -91,15 +91,22 @@ app.get(  // if user press continue then redirect to /auth/google/user page.
 app.post(
     "/login",
     passport.authenticate("local", {
-      successRedirect: "/user", // if callback function of serialized and deserilazid returns user then redirect to / user page.
+      // if callback function of serialized and deserilazid returns user then redirect to / user page.
       failureRedirect: "/login", // if callback function of serialized and deserilazid returns null then redirect to /login page.
-    })
+    }),
+    async function(req, res) {
+      const usernamename = await db.query("SELECT name FROM users WHERE email = $1", [req.body.username]);
+      console.log(usernamename.rows[0].name);
+      res.render("user.ejs",{name:usernamename.rows[0].name});
+    }
   );
 
 // For storing  and checking information in database
 app.post("/register", async(req, res) => {
     const email = req.body.username; // saving user input email and password in constant email and password.
     const password = req.body.password;
+    const name = req.body.name;
+    const telephone = req.body.telephone;
 
     try{
         const checking = await db.query("select * from users where email = $1",[email]);
@@ -112,8 +119,7 @@ app.post("/register", async(req, res) => {
                   console.error("Error hashing password:", err);
                 } else {
                     const result = await db.query(  //hash will be stored in database not password.
-                    "INSERT INTO users (email, password) VALUES ($1, $2)",[email, hash]);
-                  res.render("user.ejs");
+                    "INSERT INTO users (email, password, name, telephone) VALUES ($1, $2, $3, $4)",[email, hash, name, telephone]);
                   const user = result.rows[0];
                   req.login(user, (err) => {
                     console.log("success");
@@ -138,6 +144,7 @@ passport.use( "local",
         if (result.rows.length > 0) {
           const user = result.rows[0];
           const storedHashedPassword = user.password;
+          const name = user.name;
           bcrypt.compare(password, storedHashedPassword, (err, valid) => {
             if (err) {
               //Error with password check
