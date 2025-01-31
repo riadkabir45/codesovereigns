@@ -1,16 +1,16 @@
-import { Routes, Route } from 'react-router-dom';
-import ProductDisplay from './pages/ProdcutList';
-import ProductSpecification from './pages/ProductDisplay';
+import Nav from "./components/Nav";
+import './App.css';
+import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
-const App = () => {
-    return (
-        <>
-            <Routes>
-                <Route path='/' element={<ProductDisplay/>} />
-                <Route path='/product/:productId' element={<ProductSpecification/>} />
-            </Routes>
-        </>
-    )
+function App() {
+  return (
+    <>
+      <Nav/>
+      <Home/>
+      <Footer/>
+    </>
+  );
 }
 
 export default App;
