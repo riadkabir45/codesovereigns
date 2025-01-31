@@ -1,13 +1,48 @@
 <%- include('partials/header') %>
 
-  <div class="jumbotron text-center">
-    <div class="container">
-      <i class="fas fa-key fa-6x"></i>
-      <h1 class="display-3">User Name</h1>
-      <p class="secret-text">Information</p>
 
-
+    <div class="account-container">
+      <div class="name-container">
+      <span class="avatar">
+        <img src="https://www.gravatar.com/avatar/344e6697ef2aa1b0a6868cbe18511538?s=70&amp;d=mp&amp;r=g" width="80" height="80" alt="AM">
+      </span>
+      <p class="name">Hello, <%= name %></p>
+      </div>
+      <div class="ac-menus">
+        <div class="ac-menu-item">
+            <a href="/order" class="ico-btn"><span>Orders</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/quote" class="ico-btn"><span>Quote</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/edit" class="ico-btn"><span>Edit Profile</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/password" class="ico-btn"><span>Change Password</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/address" class="ico-btn"><span>Addresses</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/wishlist" class="ico-btn"><span>Wish List</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/pc" class="ico-btn"><span>Saved PC</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/reward" class="ico-btn"><span>Star Points</span></a>
+        </div>
+        <div class="ac-menu-item">
+            <a href="/transaction" class="ico-btn"><span>Your Transactions</span></a>
+        </div>
+        <div class="ac-menu-item hide">
+            <a href="/deletion_request" class="ico-btn"><span>Delete Account</span></a>
+        </div>
+        <div class="ac-menu-item h-desk">
+            <a href="/logout" class="ico-btn"><span>Logout</span></a>
+        </div>
     </div>
-  </div>
-
+    </div>
+</body>
   <%- include('partials/footer') %>
