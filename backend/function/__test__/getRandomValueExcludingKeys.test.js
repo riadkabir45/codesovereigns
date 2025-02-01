@@ -1,4 +1,4 @@
-import getRandomValueExcludingKeys from "./getRandomValueExcludingKeys";
+import getRandomValueExcludingKeys from "../getRandomValueExcludingKeys";
 
 test('RandomKey: get random dictionary key excluding keys',() => {
     const testDict = {'line1':'Hi','line2':'I am Luna','line3':'Nice to meet you'}
