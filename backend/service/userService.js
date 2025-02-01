@@ -1,0 +1,26 @@
+import Userer from '../model/User.js'
+
+let User;
+
+async function generateUserInstance(){
+    if(!User){
+        User = await Userer();
+    }
+}
+
+export const createUser = async (username,password) => {
+    await generateUserInstance();
+    User.create({username,password});
+}
+
+export const getUser = async (username) => {
+    await generateUserInstance();
+    try {
+        const user = await User.findOne({
+            where: { username }
+        });
+        return user;
+      } catch (error) {
+        return null;
+      }
+}

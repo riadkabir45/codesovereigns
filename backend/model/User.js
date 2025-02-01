@@ -13,7 +13,7 @@ export default async () => {
             primaryKey: true,
             defaultValue: UUIDV4
         },
-        name:{
+        username:{
             type: DataTypes.STRING,
             allowNull: false
         },
