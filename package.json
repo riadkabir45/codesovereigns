@@ -4,7 +4,7 @@
   "description": "## Team Members - injaamam (Team Leader) - riadkabir45 - mony820",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --names 'Backend,Frontend' --prefix-colors 'blue,green' 'npm run backend' 'npm run frontend'",
+    "dev": "concurrently --names \"Backend,Frontend\" --prefix-colors \"blue,green\" \"npm run backend\" \"npm run frontend\"",
     "backend": "npm run dev --prefix ./backend",
     "frontend": "npm run dev --prefix ./frontend"
   },
