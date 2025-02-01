@@ -24,3 +24,16 @@ export const getUser = async (username) => {
         return null;
       }
 }
+
+export const updateUserPassword = async (username,password) => {
+    await generateUserInstance();
+    try {
+        const user = await User.findOne({
+            where: { username }
+        });
+        await user.updatePassword(password);
+        return user;
+      } catch (error) {
+        return null;
+      }
+}
