@@ -1,9 +1,9 @@
 import { DataTypes, Model, UUIDV4 } from "sequelize";
 import sequelize from "../config/dbinit.js";
 
-class Laptop extends Model {}
+class Product extends Model {}
 
-Laptop.init({
+Product.init({
     id:{
         type: DataTypes.UUID,
         primaryKey: true,
@@ -16,6 +16,10 @@ Laptop.init({
     name:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    category:{
+        type: DataTypes.STRING,
+        allowNull: true
     },
     price:{
         type: DataTypes.STRING,
@@ -32,9 +36,9 @@ Laptop.init({
     }
 },{
     sequelize,
-    modelName: "laptop"
+    modelName: "Product"
 });
 
-await Laptop.sync({ force: false });
+await Product.sync({ force: false });
 
-export default Laptop;
+export default Product;

@@ -1,11 +1,14 @@
 import { Sequelize } from "sequelize";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const sequelize = new Sequelize(
-    'postgres',
-    'postgres.myiejrsnpkxzfewzgtgn',
-    'postgressoverign',
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASS,
     {
-        host: 'aws-0-ap-south-1.pooler.supabase.com',
+        host: process.env.DB_URL,
         dialect: 'postgres',
         logging: console.log
     }

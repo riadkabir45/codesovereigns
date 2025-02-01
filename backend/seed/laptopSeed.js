@@ -1,4 +1,4 @@
-import Laptop from '../model/Laptop.js';
+import Laptop from '../model/Product.js';
 import fs from 'fs';
 import { join } from 'path';
 import root from '../function/root.js';
@@ -13,8 +13,8 @@ async function seedLaptops() {
         const offset = (laptops.length - range - 1)*randomNumber;
         
         for (const laptop of laptops.slice(offset, offset + range)) { 
-            const { main_image: image, name, price, description, Specifications } = laptop;
-            const argumentObj = {image , name, price, description, features: Object.entries(Specifications)};
+            const { main_image: image, name, price, description, category , Specifications } = laptop;
+            const argumentObj = {image , name, category, price, description, features: Object.entries(Specifications)};
             await Laptop.create(argumentObj);
         }
 
