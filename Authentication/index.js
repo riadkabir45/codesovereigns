@@ -61,14 +61,86 @@ app.get("/logout", (req, res) => {// logout function is used to remove the user 
   });
 
 // if user is authenticated (he prevoustly login and his information is saved as cookies) then only he can see the secrets page.
-app.get("/user", (req, res) => {
-    // console.log(req.user);
+app.get("/user", async(req, res) => {
+    console.log(req.user);
     if (req.isAuthenticated()) {
-      res.render("user.ejs");
+      res.render("user.ejs",{name:req.user.name});
     } else {
       res.redirect("/login");
     }
   });
+app.get('/order', async(req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/order.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/quote', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/quote.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/edit', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/edit.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/password', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/password.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/address', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/address.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/wishlist', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/wishlist.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/pc', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/pc.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/reward', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/reward.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/transaction', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/transaction.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get('/deletion_request', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("account_page/deletion_request.ejs",{name:req.user.name});
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
 
   // passport.authenticate("google") is a middleware that authenticates the user using the google strategy.
 app.get("/auth/google", 
@@ -91,14 +163,10 @@ app.get(  // if user press continue then redirect to /auth/google/user page.
 app.post(
     "/login",
     passport.authenticate("local", {
-      // if callback function of serialized and deserilazid returns user then redirect to / user page.
+      successRedirect:"/user",// if callback function of serialized and deserilazid returns user then redirect to / user page.
       failureRedirect: "/login", // if callback function of serialized and deserilazid returns null then redirect to /login page.
-    }),
-    async function(req, res) {
-      const usernamename = await db.query("SELECT name FROM users WHERE email = $1", [req.body.username]);
-      console.log(usernamename.rows[0].name);
-      res.render("user.ejs",{name:usernamename.rows[0].name});
-    }
+    })
+    
   );
 
 // For storing  and checking information in database
@@ -181,15 +249,17 @@ passport.use(
       },
       async (accessToken, refreshToken, profile, cb) => {
         try {
-          
+          //console.log(profile);
           const result = await db.query("SELECT * FROM users WHERE email = $1", [
             profile.emails[0].value,
           ]); 
           if (result.rows.length === 0) {
-            const newUser = await db.query(
-              "INSERT INTO users (email, password) VALUES ($1, $2)",
-              [profile.emails[0].value, "google"]
-            );console.log(newUser)
+            await db.query(
+              "INSERT INTO users (email, password, name) VALUES ($1, $2, $3)",
+              [profile.emails[0].value, "google", profile.displayName]);
+            const newUser = await db.query("SELECT * FROM users WHERE email = $1", [
+                profile.emails[0].value,
+              ]); console.log(newUser.rows[0]);
             return cb(null, newUser.rows[0]);
           } else {
             return cb(null, result.rows[0]);
