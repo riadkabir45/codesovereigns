@@ -18,6 +18,7 @@
     "dev": "nodemon server.js",
     "dinit": "node dataSeeds.js",
     "test": "jest",
+    "test:watch": "jest --watch",
     "coverage": "jest --collect-coverage"
   },
   "dependencies": {
