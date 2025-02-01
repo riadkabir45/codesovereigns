@@ -1,7 +1,8 @@
 
-import Product from '../model/Product.js'
+import Producter from '../model/Product.js'
 
 export const getProducts = async (req, res) =>  {
+    const Product = await Producter();
     try {
       const products = await Product.findAll();
       res.status(200).json({success: true, data: products});
@@ -12,6 +13,7 @@ export const getProducts = async (req, res) =>  {
 }
 
 export const getProduct = async (req, res) => {
+    const Product = await Producter();
     const { id } = req.params;
     try {
         const product = await Product.findOne({
