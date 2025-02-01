@@ -1,7 +1,7 @@
 
 function Home() {
 
-    const catArray = ['nf-md-tablet_cellphone','nf-md-watch','nf-md-earbuds','nf-md-cable_data','nf-md-speaker','nf-fa-headphones_simple','nf-fa-pen_to_square','nf-fa-laptop'];
+    const catArray = ['nf-md-tablet_cellphone','nf-md-watch','nf-md-earbuds','nf-md-cable_data','nf-md-speaker','nf-fa-headphones_simple','nf-md-chair_rolling','nf-fa-laptop','nf-md-mouse','nf-md-keyboard','nf-md-desktop_mac','nf-fa-gamepad','nf-md-usb_flash_drive','nf-fa-server','nf-md-camcorder'];
 
     return (
         <div className="flex flex-col gap-20 mx-10">
