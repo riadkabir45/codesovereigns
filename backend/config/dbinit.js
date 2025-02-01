@@ -14,6 +14,8 @@ const sequelize = new Sequelize(
     }
 );
 
-await sequelize.authenticate();
 
-export default sequelize;
+export default async() => {
+    await sequelize.authenticate();
+    return sequelize;
+};

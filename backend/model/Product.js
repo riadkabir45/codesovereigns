@@ -1,7 +1,9 @@
 import { DataTypes, Model, UUIDV4 } from "sequelize";
-import sequelize from "../config/dbinit.js";
+import sequelizer from "../config/dbinit.js";
 
 class Product extends Model {}
+
+const sequelize = await sequelizer();
 
 Product.init({
     id:{
