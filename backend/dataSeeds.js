@@ -1,7 +1,7 @@
-import seedProducts from './seed/prodcutSeed.js';
-import seedUsers from './seed/userSeed.js';
-import Product from './model/Product.js';
-import User from './model/User.js';
+import seedProducts from './serverComponents/seed/prodcutSeed.js';
+import seedUsers from './serverComponents/seed/userSeed.js';
+import Product from './serverComponents/model/Product.js';
+import User from './serverComponents/model/User.js';
 
 
 for (const model of [Product,User]) {
