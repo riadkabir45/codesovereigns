@@ -26,7 +26,7 @@ async function seedProducts() {
                     const randomNumber = Math.random()
                     const offset = (products.length - range - 1)*randomNumber;
                     
-                    for (const product of products.slice(offset, offset + range)) { 
+                    for (const product of products) { 
                         const { id, main_image: image, name, price, description, category , Specifications } = product;
                         const argumentObj = {image , name, category, price, description, features: Object.entries(Specifications)};
                         try {
