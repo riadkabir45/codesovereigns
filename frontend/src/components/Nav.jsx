@@ -10,11 +10,15 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Badge } from "@/components/ui/badge"
-
+import { NavLink as OriginalNavLink } from "react-router";
 import styled from "styled-components";
 
 
 const NavigationMenuItem = styled(OriginalNavigationMenuItem)`
+    display: flex;
+`;
+
+const NavLink = styled(OriginalNavLink)`
     display: flex;
 `;
 
@@ -26,11 +30,11 @@ function Nav() {
                     <NavigationMenu className="hidden md:block">
                         <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>Home</NavigationMenuTrigger>
+                            <NavLink to="/" ><NavigationMenuTrigger>Home</NavigationMenuTrigger></NavLink>
                             <NavigationMenuContent>
                             <NavigationMenuLink>
                                 <div className="w-50 h-30 m-10 whitespace-nowrap text-xl text-center">
-                                    <span>You are already here!</span>
+                                    <span>Yipeeeee!</span>
                                 </div>
                             </NavigationMenuLink>
                             </NavigationMenuContent>
