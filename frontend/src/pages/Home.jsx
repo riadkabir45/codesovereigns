@@ -1,7 +1,23 @@
 
 function Home() {
 
-    const catArray = ['nf-md-tablet_cellphone','nf-md-watch','nf-md-earbuds','nf-md-cable_data','nf-md-speaker','nf-fa-headphones_simple','nf-md-chair_rolling','nf-fa-laptop','nf-md-mouse','nf-md-keyboard','nf-md-desktop_mac','nf-fa-gamepad','nf-md-usb_flash_drive','nf-fa-server','nf-md-camcorder'];
+    const category = {
+        'phone': 'nf-md-tablet_cellphone',
+        'watch': 'nf-md-watch',
+        'earbuds': 'nf-md-earbuds',
+        'plugs': 'nf-md-cable_data',
+        'speaker': 'nf-md-speaker',
+        'headphone': 'nf-fa-headphones_simple',
+        'chair': 'nf-md-chair_rolling',
+        'laptop': 'nf-fa-laptop',
+        'mouse': 'nf-md-mouse',
+        'keyboard': 'nf-md-keyboard',
+        'monitor': 'nf-md-desktop_mac',
+        'console': 'nf-fa-gamepad',
+        'pendrive': 'nf-md-usb_flash_drive',
+        'server': 'nf-fa-server',
+        'camera': 'nf-md-camcorder'
+    };
 
     return (
         <div className="flex flex-col gap-20 mx-10">
@@ -24,10 +40,10 @@ function Home() {
                 <div className="text-center font-bold text-lg xs:text-3xl md:text-4xl lg:text-6xl">Featured Categories</div>
                 <div id="category" className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
                     {
-                    catArray.map((element, index) => (
-                        <a key={index} href="">
+                        Object.entries(category).map(([key, value]) => (
+                        <a key={key} href={"/category/" + key}>
                             <div className="p-20 rounded-xl transition duration-500 hover:bg-slate-100 bg-slate-300 flex justify-center items-center"> 
-                          <i className={"nf text-5xl "+element}></i>
+                          <i className={"nf text-5xl " + value}></i>
                         </div>
                         </a>
                       ))
