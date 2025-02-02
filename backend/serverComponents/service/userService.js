@@ -13,6 +13,16 @@ export const createUser = async (username,password) => {
     await User.create({username,password});
 }
 
+export const getUsers = async () => {
+    await generateUserInstance();
+    try {
+        const users = await User.findAll();
+        return users;
+      } catch (error) {
+        return null;
+      }
+}
+
 export const getUser = async (username) => {
     await generateUserInstance();
     try {
