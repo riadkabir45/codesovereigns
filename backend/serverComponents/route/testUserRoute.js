@@ -1,5 +1,6 @@
 import express from "express"
 import { createUser, getUser, getUsers } from "../service/userService.js";
+import logger from "../config/logger.js";
 
 
 const testUserRouter = express.Router();
@@ -11,6 +12,7 @@ testUserRouter.post("/create", async (req,res) => {
         res.status(200).json({success: true, data: null});
     } catch (error) {
         res.status(500).json({success: false, data: null});
+        logger.error(error);
     };
 });
 
@@ -21,6 +23,7 @@ testUserRouter.get("/:username", async (req,res) => {
         res.status(200).json({success: true, data: user});
     } catch (error) {
         res.status(500).json({success: false, data: null});
+        logger.error(error);
     };
 });
 
@@ -30,6 +33,7 @@ testUserRouter.get("/", async (req,res) => {
         res.status(200).json({success: true, data: users});
     } catch (error) {
         res.status(500).json({success: false, data: null});
+        logger.error(error);
     };
 });
 
