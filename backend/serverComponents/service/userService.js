@@ -41,7 +41,8 @@ export const updateUserPassword = async (username,password) => {
         const user = await User.findOne({
             where: { username }
         });
-        await user.updatePassword(password);
+        await user.update({ password });
+        user.save();
         return user;
       } catch (error) {
         return null;
