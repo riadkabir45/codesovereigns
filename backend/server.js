@@ -1,7 +1,7 @@
 import express from "express";
-import laptopRoutes from './route/productRoute.js'
+import laptopRoutes from './serverComponents/route/productRoute.js'
 import cors from 'cors';
-import testUserRouter from "./route/testUserRoute.js";
+import testUserRouter from "./serverComponents/route/testUserRoute.js";
 
 const app = express();
 const port = 5000;
