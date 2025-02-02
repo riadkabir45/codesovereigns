@@ -1,10 +1,8 @@
-
-import Producter from '../model/Product.js'
+import { getProductByCategoryService, getProductService, getProductsService } from '../service/productService.js';
 
 export const getProducts = async (req, res) =>  {
-    const Product = await Producter();
     try {
-      const products = await Product.findAll();
+      const products = await getProductsService();
       res.status(200).json({success: true, data: products});
     } catch (error) {
       console.error("Error finding Products: ",error);
@@ -13,15 +11,23 @@ export const getProducts = async (req, res) =>  {
 }
 
 export const getProduct = async (req, res) => {
-    const Product = await Producter();
-    const { id } = req.params;
     try {
-        const product = await Product.findOne({
-            where: { id }
-        });
+        const { id } = req.params;
+        const product = await getProductService(id);
         res.status(200).json({success: true, data: product});
       } catch (error) {
         console.error("Error finding Product: ",error);
         res.status(500).json({success: false, data: null});
       }
+}
+
+export const getProductByCategory = async (req, res) => {
+  try {
+      const { category } = req.params;
+      const product = await getProductByCategoryService(category);
+      res.status(200).json({success: true, data: product});
+    } catch (error) {
+      console.error("Error finding Product: ",error);
+      res.status(500).json({success: false, data: null});
+    }
 }
