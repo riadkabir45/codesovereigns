@@ -15,8 +15,9 @@ async function seedUsers() {
             const { username, password } = user;
             try {
                 await createUser(username,password);
+                
             } catch (error) {
-                console.error("Error inserting user:", username);
+                console.error("Error inserting user:", username,error);
             }
         }
 

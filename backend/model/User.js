@@ -15,6 +15,7 @@ export default async () => {
         },
         username:{
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false
         },
         password:{
