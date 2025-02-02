@@ -33,6 +33,21 @@ export const getProductService = async (id) => {
 }
 
 
+
+export const getProductCategoryService = async () => {
+    await generateProductInstance();
+    try {
+        return await Product.findAll({
+            attributes: ['category'],
+            group: ['category'],
+            raw: true,
+        });
+    } catch (error) {
+        logger.error(error);
+        return null;
+    }
+}
+
 export const getProductByCategoryService = async (category) => {
     await generateProductInstance();
     try {
