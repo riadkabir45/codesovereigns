@@ -7,7 +7,7 @@ const testUserRouter = express.Router();
 testUserRouter.post("/create", async (req,res) => {
     const { username, password } = req.body;
     try {
-        createUser(username,password);
+        await createUser(username,password);
         res.status(200).json({success: true, data: null});
     } catch (error) {
         res.status(500).json({success: false, data: null});

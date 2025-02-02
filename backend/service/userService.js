@@ -10,7 +10,7 @@ async function generateUserInstance(){
 
 export const createUser = async (username,password) => {
     await generateUserInstance();
-    User.create({username,password});
+    await User.create({username,password});
 }
 
 export const getUser = async (username) => {
