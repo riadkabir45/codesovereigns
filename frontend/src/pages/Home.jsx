@@ -2,11 +2,11 @@
 function Home() {
 
     const category = {
-        'phone': 'nf-md-tablet_cellphone',
-        'watch': 'nf-md-watch',
+        'tablet-pc': 'nf-md-tablet_cellphone',
+        'smart-watch': 'nf-md-watch',
         'earbuds': 'nf-md-earbuds',
-        'plugs': 'nf-md-cable_data',
-        'speaker': 'nf-md-speaker',
+        'mobile-phone-charger-adapter': 'nf-md-cable_data',
+        'speaker-and-home-theater': 'nf-md-speaker',
         'headphone': 'nf-fa-headphones_simple',
         'chair': 'nf-md-chair_rolling',
         'laptop': 'nf-fa-laptop',
@@ -14,7 +14,7 @@ function Home() {
         'keyboard': 'nf-md-keyboard',
         'monitor': 'nf-md-desktop_mac',
         'console': 'nf-fa-gamepad',
-        'pendrive': 'nf-md-usb_flash_drive',
+        'pen-drive': 'nf-md-usb_flash_drive',
         'server': 'nf-fa-server',
         'camera': 'nf-md-camcorder'
     };
