@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { isEqual, remove } from "lodash";
+import { isEqual } from "lodash";
 import {SideBar, toggleOpen } from '../components/SideBar.jsx';
+import { Badge } from "@/components/ui/badge.jsx";
 
 import {
     Card,
@@ -60,7 +61,7 @@ function Products() {
 
     
     useEffect(() => {
-        fetch(backend + '/api/products/category/' + category).then(res => {
+        fetch(`http://${window.location.hostname}:${backend}` + '/api/products/category/' + category).then(res => {
             if(!res.ok){
                 console.error(res.error);
             }else{
@@ -132,9 +133,9 @@ function Products() {
             <div>
                 <div className="flex items-center px-10  text-5xl">
                     <div onClick={() => toggleOpen(setSidebar)} className="inline  scale-x-[-1]"><i className={`nf ${sidebar?"nf-oct-sidebar_expand":"nf-oct-sidebar_collapse"} text-slate-700`}></i></div>
-                    <div className="mx-auto text-center p-10 font-extrabold">{category.slice(0,1).toUpperCase() + category.slice(1)}</div>
+                    <div className="mx-auto text-center p-10 font-extrabold">{toTitleCase(category.replace(/-/g,' '))}</div>
                 </div>
-                <div className="grid gap-10 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mx-10 mb-10">
+                <div className="flex flex-wrap justify-center gap-10 mx-10 mb-10">
                     {
                         products.map((value,index) => {
                             let filterMatch = true;
@@ -152,9 +153,10 @@ function Products() {
                             
                             if(filterMatch)
                             return (
-                                <Card className="border border-black rounded-none flex flex-col justify-between" key={index}>
+                                <Card className="border max-w-sm border-black rounded-none flex flex-col justify-between" key={index}>
                                     <div>
-                                        <CardContent>
+                                        <CardContent className="relative">
+                                            <Badge className="absolute right-5">{value.price}</Badge>
                                             <img src={value.image} alt={value.name} className="mx-auto" />
                                         </CardContent>
                                         <CardHeader>

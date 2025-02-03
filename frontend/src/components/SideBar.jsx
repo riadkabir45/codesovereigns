@@ -21,7 +21,7 @@ function SideBar({ children, state = true }) {
     return (
         <div className="bg-slate-200">
             <div className="sticky top-0">
-                <ScrollArea className={`h-screen transition-all duration-300 ${ !open ? 'w-[0px]' : 'w-[30vw]'}`}>
+                <ScrollArea className={`h-screen transition-all duration-300 ${ !open ? 'w-[0px]' : 'w-[250px]'}`}>
                     <div className="m-10">
                         {children}
                     </div>
