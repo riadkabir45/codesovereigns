@@ -85,7 +85,6 @@ function Products() {
                             });
                         })
                         setFeatureList(newFeatureList);
-                        
                         if(data.data == null)
                             setProducts([]);
                         else if(!isEqual(data.data,products))
@@ -138,7 +137,20 @@ function Products() {
                 <div className="grid gap-10 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mx-10 mb-10">
                     {
                         products.map((value,index) => {
+                            let filterMatch = true;
                             
+                            if(filter.length > 0){
+                                filterMatch = false;
+                                for(let i=0;i<value.features.length;i+=1){
+                                    const [ currentFeature, currentFeatureValue ] = value.features[i];
+                                    if(filter.includes(`${currentFeatureValue}@${currentFeature}`)){
+                                        filterMatch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if(filterMatch)
                             return (
                                 <Card className="border border-black rounded-none flex flex-col justify-between" key={index}>
                                     <div>
