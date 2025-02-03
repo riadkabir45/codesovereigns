@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { isEqual } from "lodash";
+import { isEqual, remove } from "lodash";
 import {SideBar, toggleOpen } from '../components/SideBar.jsx';
 
 import {
@@ -31,7 +31,33 @@ function Products() {
     const { category } = useParams();
     const [featureList,setFeatureList] = useState([]);
     const [sidebar,setSidebar] = useState(false);
+    const [filter,setFilter] = useState([]);
+
+    function GenericName(nameStr){
+        nameStr = nameStr.replace(/\s*-\s*/g, " ");
+        nameStr = nameStr.replace(/\s+/g, " ");
+        const subs = nameStr.split(' ');
+        if(subs.length > 1 && /^[\d.]+$/.test(subs[0]) && /^[a-zA-Z]+$/.test(subs[1])){
+            if(subs[1].length > 2)
+                subs[1] = subs[1].slice(0,2);
+            nameStr = subs[0]+subs[1].toUpperCase()+' '+subs.slice(2).join(' ');
+        }
+        else if(/^\d+[a-z]/.test(subs[0])){
+            subs[0] = subs[0].toUpperCase();
+            nameStr = subs.join(' ');
+        }
+        else if(/^[\d.]+\"/.test(subs[0])){
+            subs[0] = subs[0].replace('"','IN');
+            nameStr = subs.join(' ');
+        }
+        nameStr = nameStr.trimEnd();;
+        return nameStr;
+    }
     
+    function toTitleCase(str) {
+        return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
     
     useEffect(() => {
         fetch(backend + '/api/products/category/' + category).then(res => {
@@ -42,10 +68,11 @@ function Products() {
                     if(data.success){
                         const newFeatureList = {};
                         data.data.map((item) => {
-                            item.features.map((feature) => {
+                            item.features.map((feature,indx) => {
                                 try {
                                     const fkey = feature[0];
-                                    const fval = toTitleCase(feature[1]);
+                                    const fval = GenericName(toTitleCase(feature[1]));
+                                    item.features[indx][1] = fval;
                                     if(fval.length <= 20){
                                         if (!(fkey in newFeatureList)) 
                                             newFeatureList[fkey] = [];
@@ -58,6 +85,7 @@ function Products() {
                             });
                         })
                         setFeatureList(newFeatureList);
+                        
                         if(data.data == null)
                             setProducts([]);
                         else if(!isEqual(data.data,products))
@@ -69,10 +97,7 @@ function Products() {
             }
         });
     },[products]);
-
-    function toTitleCase(str) {
-        return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-      }
+    
 
     return (
         
@@ -80,20 +105,28 @@ function Products() {
             <SideBar state={sidebar} >
                 <Accordion type="single" collapsible>
                     {
-                        Object.entries(featureList).map(([key,value]) => (
-                            <AccordionItem value={key} key={key}>
-                                <AccordionTrigger>{key}</AccordionTrigger>
-                                <AccordionContent>
-                                    {
-                                        value.map((val,index) => (
-                                            <div key={val+index} className="flex items-center gap-2">
-                                                <Checkbox /> <span>{val}</span>
-                                            </div>
-                                        ))
-                                    }
-                                </AccordionContent>
-                            </AccordionItem>
-                            ))
+                        Object.entries(featureList).map(([key,value]) => {
+                            value.sort();
+                            return (
+                                <AccordionItem value={key} key={key}>
+                                    <AccordionTrigger>{key}</AccordionTrigger>
+                                    <AccordionContent>
+                                        {
+                                            value.map((val,index) => (
+                                                <div key={val+index} className="flex items-center gap-2">
+                                                    <Checkbox onCheckedChange={(state) => {
+                                                        if(state)
+                                                            setFilter([...filter,`${val}@${key}`]);
+                                                        else
+                                                            setFilter(filter.filter(item => item != `${val}@${key}`));
+                                                    }} /> <span>{val}</span>
+                                                </div>
+                                            ))
+                                        }
+                                    </AccordionContent>
+                                </AccordionItem>
+                            )
+                        })
                     }
                 </Accordion>
             </SideBar>
@@ -104,7 +137,9 @@ function Products() {
                 </div>
                 <div className="grid gap-10 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mx-10 mb-10">
                     {
-                        products.map((value,index) => (
+                        products.map((value,index) => {
+                            
+                            return (
                                 <Card className="border border-black rounded-none flex flex-col justify-between" key={index}>
                                     <div>
                                         <CardContent>
@@ -119,7 +154,8 @@ function Products() {
                                         <Button>View Product</Button>
                                     </CardFooter>
                                 </Card>
-                        ))
+                            );
+                        })
                     }
                 </div>
             </div>
