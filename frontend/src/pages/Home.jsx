@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 function Home() {
 
@@ -41,11 +42,11 @@ function Home() {
                 <div id="category" className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
                     {
                         Object.entries(category).map(([key, value]) => (
-                        <a key={key} href={"/category/" + key}>
+                        <Link key={key} to={"/category/" + key}>
                             <div className="p-20 rounded-xl transition duration-500 hover:bg-slate-100 bg-slate-300 flex justify-center items-center"> 
-                          <i className={"nf text-5xl " + value}></i>
-                        </div>
-                        </a>
+                                <i className={"nf text-5xl " + value}></i>
+                            </div>
+                        </Link>
                       ))
                     }
                 </div>
