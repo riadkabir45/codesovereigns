@@ -38,8 +38,8 @@ function Home() {
             <hr />
             </section>
             <section className="flex flex-col gap-10">
-                <div className="text-center font-bold text-lg xs:text-3xl md:text-4xl lg:text-6xl">Featured Categories</div>
-                <div id="category" className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
+                <div className="text-center font-bold text-lg xs:text-3xl md:text-4xl lg:text-6xl mb-20">Featured Categories</div>
+                <div id="category" className="flex gap-5 flex-wrap justify-center">
                     {
                         Object.entries(category).map(([key, value]) => (
                         <Link key={key} to={"/category/" + key}>
