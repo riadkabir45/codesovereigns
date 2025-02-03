@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { isEqual } from "lodash";
-import {SideBar,toggleOpen} from '../components/SideBar.jsx';
+import {SideBar, toggleOpen } from '../components/SideBar.jsx';
 
 import {
     Card,
@@ -30,6 +30,7 @@ function Products() {
     const backend = import.meta.env.VITE_BACKEDN_SERVER;
     const { category } = useParams();
     const [featureList,setFeatureList] = useState([]);
+    const [sidebar,setSidebar] = useState(false);
     
     
     useEffect(() => {
@@ -76,7 +77,7 @@ function Products() {
     return (
         
         <div className="flex">
-            <SideBar>
+            <SideBar state={sidebar} >
                 <Accordion type="single" collapsible>
                     {
                         Object.entries(featureList).map(([key,value]) => (
@@ -84,8 +85,8 @@ function Products() {
                                 <AccordionTrigger>{key}</AccordionTrigger>
                                 <AccordionContent>
                                     {
-                                        value.map((val) => (
-                                            <div className="flex items-center gap-2">
+                                        value.map((val,index) => (
+                                            <div key={val+index} className="flex items-center gap-2">
                                                 <Checkbox /> <span>{val}</span>
                                             </div>
                                         ))
@@ -98,7 +99,7 @@ function Products() {
             </SideBar>
             <div>
                 <div className="flex items-center px-10  text-5xl">
-                    <div onClick={() => toggleOpen()} className="inline"><i className="nf nf-cod-layout_sidebar_left text-slate-700"></i></div>
+                    <div onClick={() => toggleOpen(setSidebar)} className="inline  scale-x-[-1]"><i className={`nf ${sidebar?"nf-oct-sidebar_expand":"nf-oct-sidebar_collapse"} text-slate-700`}></i></div>
                     <div className="mx-auto text-center p-10 font-extrabold">{category.slice(0,1).toUpperCase() + category.slice(1)}</div>
                 </div>
                 <div className="grid gap-10 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mx-10 mb-10">
