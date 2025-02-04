@@ -1,0 +1,77 @@
+networks:
+  codesoverign-network:
+
+volumes:
+  codesoverign_data:
+
+services:
+  database:
+    image: postgres:17.2-bookworm
+    container_name: codeSov-db
+    environment:
+      POSTGRES_DB: soverign
+      POSTGRES_USER: soverign
+      POSTGRES_PASSWORD: postgressoverign
+    volumes:
+      - codesoverign_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 
+    networks:
+      - codesoverign-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U soverign -d soverign"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  npm_install:
+    image: node:23.7.0-alpine3.20
+    container_name: codeSov-install
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["npm", "run","install:all"]
+    healthcheck:
+      test: ["CMD-SHELL", "npm list"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+
+  dinit:
+    profiles: ["dinit"]
+    image: node:23.7.0-alpine3.20
+    container_name: codeSov-dinit
+    environment:
+      DB_URL: database
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["npm", "run","dinit"]
+    depends_on:
+      database:
+        condition: service_healthy
+      npm_install:
+        condition: service_healthy
+    networks:
+      - codesoverign-network
+  
+  app:
+    image: node:23.7.0-alpine3.20
+    container_name: codeSov-app
+    environment:
+      DB_URL: database
+    ports:
+      - "5173:5173"
+      - "5000:5000"
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["npm", "run","dev"]
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - codesoverign-network
+    
+    

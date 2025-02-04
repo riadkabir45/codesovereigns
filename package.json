@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently --names \"Backend,Frontend\" --prefix-colors \"blue,green\" \"npm run backend\" \"npm run frontend\"",
     "dinit": "npm run dinit --prefix ./backend",
+    "install:all": "npm i --prefix ./backend && npm i --prefix ./frontend && npm i && touch /tmp/codesoverign.node.done",
     "backend": "npm run dev --prefix ./backend",
     "frontend": "npm run dev --prefix ./frontend"
   },
