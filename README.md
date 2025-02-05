@@ -28,3 +28,16 @@ A premier online retailer specializing in the provision of high-quality computer
 - [Project Documentation](docs/)
 - [Development Setup](docs/setup.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
+
+## To create DB:
+create user soverign with password 'postgressoverign';
+create database soverign owner soverign;
+
+## Custom command for installing all packages:
+npm run install:all
+
+## To populate DB:
+npm run dinit
+
+## To start server:
+npm run dev
