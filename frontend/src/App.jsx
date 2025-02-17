@@ -15,6 +15,7 @@ function App() {
       <Nav/>
         <Routes>
           <Route path={BASE_URL+""} element={<Home/>} />
+          <Route path={BASE_URL+"category/:category/:page"} element={<Products/>} />
           <Route path={BASE_URL+"category/:category"} element={<Products/>} />
           <Route path={BASE_URL+"product/:productID"} element={<ProductDisplay/>} />
         </Routes>

@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router";
 import { isEqual } from "lodash";
 import {SideBar, toggleOpen } from '../components/SideBar.jsx';
 import { Badge } from "@/components/ui/badge.jsx";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import {
     Card,
@@ -12,7 +14,6 @@ import {
     CardHeader,
     CardTitle,
 } from "../components/Card";
-import { Button } from "@/components/ui/button";
 
 import {
     Accordion,
@@ -20,19 +21,31 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Checkbox } from "@/components/ui/checkbox"
 
-  
-  
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
+    
 
 function Products() {
 
     const [products,setProducts] = useState([]);
     const backend = import.meta.env.VITE_BACKEDN_SERVER;
-    const { category } = useParams();
+    let { category, page } = useParams();
     const [featureList,setFeatureList] = useState([]);
     const [sidebar,setSidebar] = useState(false);
     const [filter,setFilter] = useState([]);
+    const pageSize = 10;
+    let filterItemNumber = 0;
+
+    if(page == null)
+        page = 1;
 
     function GenericName(nameStr){
         nameStr = nameStr.replace(/\s*-\s*/g, " ");
@@ -61,6 +74,7 @@ function Products() {
 
     
     useEffect(() => {
+        
         fetch(`http://${window.location.hostname}:${backend}` + '/api/products/category/' + category).then(res => {
             if(!res.ok){
                 console.error(res.error);
@@ -101,7 +115,7 @@ function Products() {
 
     return (
         
-        <div className="flex grow">
+        <div className="flex grow pb-10">
             <SideBar state={sidebar} >
                 <Accordion type="single" collapsible>
                     {
@@ -132,7 +146,7 @@ function Products() {
                     }
                 </Accordion>
             </SideBar>
-            <div className="w-full px-10">
+            <div className="w-full px-10 flex flex-col">
                 <div className="flex items-center  text-xl sm:text-5xl">
                     <div onClick={() => toggleOpen(setSidebar)} className="inline  scale-x-[-1]"><i className={`nf ${sidebar?"nf-oct-sidebar_expand":"nf-oct-sidebar_collapse"} text-slate-700`}></i></div>
                     <div className="mx-auto text-center p-10 font-extrabold">{toTitleCase(category.replace(/-/g,' '))}</div>
@@ -141,22 +155,22 @@ function Products() {
                     products.length != 0 && (
                         <div className="flex flex-wrap justify-center gap-10 mx-10 mb-10">
                         {
-                            products.map((value,index) => {
-                                let filterMatch = true;
+                            products.filter(product => {
                                 let filterNumber = 0;
-                                
                                 if(filter.length > 0){
-                                    filterMatch = false;
-                                    for(let i=0;i<value.features.length;i+=1){
-                                        const [ currentFeature, currentFeatureValue ] = value.features[i];
+                                    for(let i=0;i<product.features.length;i+=1){
+                                        const [ currentFeature, currentFeatureValue ] = product.features[i];
                                         if(filter.includes(`${currentFeatureValue}@${currentFeature}`)){
-                                            filterMatch = true;
                                             filterNumber += 1;
                                         }
                                     }
                                 }
-                                
-                                if(filterMatch && filterNumber == filter.length)
+                                if(filterNumber == filter.length){
+                                    filterItemNumber += 1;
+                                    return true;
+                                }
+                                return false;
+                            }).slice((page-1)*pageSize,page*pageSize).map((value,index) => {
                                 return (
                                     <Card className="border max-w-sm border-black rounded-none flex flex-col justify-between" key={index}>
                                         <div>
@@ -186,6 +200,32 @@ function Products() {
                         </div>
                     )
                 }
+                <Pagination className={products.length == 0?'hidden':''}>
+                    <PaginationContent>
+                        <PaginationItem>
+                        <PaginationPrevious to={ Number(page) > 1?`/category/${category}/${page-1}`:''} />
+                        </PaginationItem>
+                        <PaginationItem className={page-3 <= 0?'hidden':''}>
+                        <PaginationLink to={`/category/${category}/${page-3}`} >{page-3}</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem className={page-2 <= 0?'hidden':''}>
+                        <PaginationLink to={`/category/${category}/${page-2}`} >{page-2}</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                        <PaginationEllipsis />
+                        </PaginationItem>
+                        <PaginationItem className={Number(page)+2 > Math.ceil(filterItemNumber/pageSize)?'hidden':''}>
+                        <PaginationLink to={`/category/${category}/${Number(page)+2}`} >{Number(page)+2}</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem className={Number(page)+3 > Math.ceil(filterItemNumber/pageSize)?'hidden':''}>
+                        <PaginationLink to={`/category/${category}/${Number(page)+3}`} >{Number(page)+3}</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                        <PaginationNext to={Math.ceil(filterItemNumber/pageSize) >= Number(page)+1?`/category/${category}/${Number(page)+1}`:''} />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+
             </div>
         </div>
     );
