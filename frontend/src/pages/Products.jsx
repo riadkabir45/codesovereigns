@@ -101,7 +101,7 @@ function Products() {
 
     return (
         
-        <div className="flex">
+        <div className="flex grow">
             <SideBar state={sidebar} >
                 <Accordion type="single" collapsible>
                     {
@@ -130,48 +130,59 @@ function Products() {
                     }
                 </Accordion>
             </SideBar>
-            <div>
-                <div className="flex items-center px-10  text-5xl">
+            <div className="w-full px-10">
+                <div className="flex items-center  text-xl sm:text-5xl">
                     <div onClick={() => toggleOpen(setSidebar)} className="inline  scale-x-[-1]"><i className={`nf ${sidebar?"nf-oct-sidebar_expand":"nf-oct-sidebar_collapse"} text-slate-700`}></i></div>
                     <div className="mx-auto text-center p-10 font-extrabold">{toTitleCase(category.replace(/-/g,' '))}</div>
                 </div>
-                <div className="flex flex-wrap justify-center gap-10 mx-10 mb-10">
-                    {
-                        products.map((value,index) => {
-                            let filterMatch = true;
-                            
-                            if(filter.length > 0){
-                                filterMatch = false;
-                                for(let i=0;i<value.features.length;i+=1){
-                                    const [ currentFeature, currentFeatureValue ] = value.features[i];
-                                    if(filter.includes(`${currentFeatureValue}@${currentFeature}`)){
-                                        filterMatch = true;
-                                        break;
+                {
+                    products.length != 0 && (
+                        <div className="flex flex-wrap justify-center gap-10 mx-10 mb-10">
+                        {
+                            products.map((value,index) => {
+                                let filterMatch = true;
+                                
+                                if(filter.length > 0){
+                                    filterMatch = false;
+                                    for(let i=0;i<value.features.length;i+=1){
+                                        const [ currentFeature, currentFeatureValue ] = value.features[i];
+                                        if(filter.includes(`${currentFeatureValue}@${currentFeature}`)){
+                                            filterMatch = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            
-                            if(filterMatch)
-                            return (
-                                <Card className="border max-w-sm border-black rounded-none flex flex-col justify-between" key={index}>
-                                    <div>
-                                        <CardContent className="relative">
-                                            <Badge className="absolute right-5">{value.price}</Badge>
-                                            <img src={value.image} alt={value.name} className="mx-auto" />
-                                        </CardContent>
-                                        <CardHeader>
-                                            <CardTitle>{value.name}</CardTitle>
-                                            <CardDescription>{value.description}</CardDescription>
-                                        </CardHeader>
-                                    </div>
-                                    <CardFooter>
-                                        <Button>View Product</Button>
-                                    </CardFooter>
-                                </Card>
-                            );
-                        })
-                    }
-                </div>
+                                
+                                if(filterMatch)
+                                return (
+                                    <Card className="border max-w-sm border-black rounded-none flex flex-col justify-between" key={index}>
+                                        <div>
+                                            <CardContent className="relative">
+                                                <Badge className="absolute right-5">{value.price}</Badge>
+                                                <img src={value.image} alt={value.name} className="mx-auto" />
+                                            </CardContent>
+                                            <CardHeader>
+                                                <CardTitle>{value.name}</CardTitle>
+                                                <CardDescription>{value.description}</CardDescription>
+                                            </CardHeader>
+                                        </div>
+                                        <CardFooter>
+                                            <Button>View Product</Button>
+                                        </CardFooter>
+                                    </Card>
+                                );
+                            })
+                        }
+                    </div>
+                    )
+                }
+                {
+                    products.length == 0 && (
+                        <div className="w-full h-full flex flex-col justify-center text-center text-2xl sm:text-4xl lg:text-8xl">
+                            <div>(╯°□°)╯ poof! <br /><br /> Where's the data</div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

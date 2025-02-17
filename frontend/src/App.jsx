@@ -10,14 +10,14 @@ function App() {
   const BASE_URL = import.meta.env.BASE_URL;
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col justify-between">
       <Nav/>
         <Routes>
           <Route path={BASE_URL+""} element={<Home/>} />
           <Route path={BASE_URL+"category/:category"} element={<Products/>} />
         </Routes>
       <Footer/>
-    </>
+    </div>
   );
 }
 

@@ -24,7 +24,7 @@ const NavLink = styled(OriginalNavLink)`
 
 function Nav() {
     return (
-        <>
+        <div className="h-fit">
             <div className="flex xxs:text-2xl xs:text-4xl sm:text-5xl text-slate-700 items-center justify-between px-10 py-5">
                 <i className="nf nf-fa-laptop"></i>
                     <NavigationMenu className="hidden md:block">
@@ -56,7 +56,7 @@ function Nav() {
                 </div>
             </div>
             <hr />
-        </>
+        </div>
     );
 }
 
