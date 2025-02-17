@@ -1,3 +1,8 @@
+import { Badge } from "@/components/ui/badge"
+import { NavLink as OriginalNavLink } from "react-router";
+import styled from "styled-components";
+import categoryData from "./categoryData";
+import { toTitleCase, GenericName } from "./genericFunctions";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,11 +13,7 @@ import {
     NavigationMenuTrigger,
     NavigationMenuViewport,
     navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Badge } from "@/components/ui/badge"
-import { NavLink as OriginalNavLink } from "react-router";
-import styled from "styled-components";
-
+} from "@/components/ui/navigation-menu";
 
 const NavigationMenuItem = styled(OriginalNavigationMenuItem)`
     display: flex;
@@ -32,17 +33,22 @@ function Nav() {
                         <NavigationMenuItem>
                             <NavLink to="/" ><NavigationMenuTrigger>Home</NavigationMenuTrigger></NavLink>
                             <NavigationMenuContent>
-                            <NavigationMenuLink>
                                 <div className="w-50 h-30 m-10 whitespace-nowrap text-xl text-center">
                                     <span>Yipeeeee!</span>
                                 </div>
-                            </NavigationMenuLink>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <a href="/docs" className={navigationMenuTriggerStyle()}>
-                                Documentation
-                            </a>
+                            <NavigationMenuTrigger>Category</NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                            <div className="w-50 h-30 m-10 whitespace-nowrap text-xl text-center flex flex-col gap-5">
+                                {
+                                    Object.entries(categoryData).map(([category,icon]) => (
+                                        <NavLink key={icon} to={`/category/${category}`}><span className="block text-left">{toTitleCase(GenericName(category))}</span></NavLink>
+                                    ))
+                                }
+                            </div>
+                            </NavigationMenuContent>
                         </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>

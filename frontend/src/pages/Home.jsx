@@ -1,24 +1,7 @@
 import { Link } from "react-router";
+import categoryData from "@/components/categoryData";
 
 function Home() {
-
-    const category = {
-        'tablet-pc': 'nf-md-tablet_cellphone',
-        'smart-watch': 'nf-md-watch',
-        'earbuds': 'nf-md-earbuds',
-        'mobile-phone-charger-adapter': 'nf-md-cable_data',
-        'speaker-and-home-theater': 'nf-md-speaker',
-        'headphone': 'nf-fa-headphones_simple',
-        'chair': 'nf-md-chair_rolling',
-        'laptop': 'nf-fa-laptop',
-        'mouse': 'nf-md-mouse',
-        'keyboard': 'nf-md-keyboard',
-        'monitor': 'nf-md-desktop_mac',
-        'console': 'nf-fa-gamepad',
-        'pen-drive': 'nf-md-usb_flash_drive',
-        'server': 'nf-fa-server',
-        'camera': 'nf-md-camcorder'
-    };
 
     return (
         <div className="flex flex-col gap-20 mx-10">
@@ -41,7 +24,7 @@ function Home() {
                 <div className="text-center font-bold text-lg xs:text-3xl md:text-4xl lg:text-6xl mb-20">Featured Categories</div>
                 <div id="category" className="flex gap-5 flex-wrap justify-center">
                     {
-                        Object.entries(category).map(([key, value]) => (
+                        Object.entries(categoryData).map(([key, value]) => (
                         <Link key={key} to={"/category/" + key}>
                             <div className="p-20 rounded-xl transition duration-500 hover:bg-slate-100 bg-slate-300 flex justify-center items-center"> 
                                 <i className={"nf text-5xl " + value}></i>
