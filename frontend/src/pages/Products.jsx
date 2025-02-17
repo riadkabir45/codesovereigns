@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import { isEqual } from "lodash";
 import {SideBar, toggleOpen } from '../components/SideBar.jsx';
 import { Badge } from "@/components/ui/badge.jsx";
@@ -167,7 +167,7 @@ function Products() {
                                             </CardHeader>
                                         </div>
                                         <CardFooter>
-                                            <Button>View Product</Button>
+                                            <Link to={'/product/'+value.id}><Button>View Product</Button></Link>
                                         </CardFooter>
                                     </Card>
                                 );

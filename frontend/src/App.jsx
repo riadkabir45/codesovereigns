@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router";
 import Products from "./pages/Products";
+import ProductDisplay from "./pages/ProductDisplay";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path={BASE_URL+""} element={<Home/>} />
           <Route path={BASE_URL+"category/:category"} element={<Products/>} />
+          <Route path={BASE_URL+"product/:productID"} element={<ProductDisplay/>} />
         </Routes>
       <Footer/>
     </div>
