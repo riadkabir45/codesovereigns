@@ -114,7 +114,9 @@ function Products() {
                                         {
                                             value.map((val,index) => (
                                                 <div key={val+index} className="flex items-center gap-2">
-                                                    <Checkbox onCheckedChange={(state) => {
+                                                    <Checkbox checked={
+                                                        filter.includes(`${val}@${key}`)
+                                                    } onCheckedChange={(state) => {
                                                         if(state)
                                                             setFilter([...filter,`${val}@${key}`]);
                                                         else
@@ -141,6 +143,7 @@ function Products() {
                         {
                             products.map((value,index) => {
                                 let filterMatch = true;
+                                let filterNumber = 0;
                                 
                                 if(filter.length > 0){
                                     filterMatch = false;
@@ -148,12 +151,12 @@ function Products() {
                                         const [ currentFeature, currentFeatureValue ] = value.features[i];
                                         if(filter.includes(`${currentFeatureValue}@${currentFeature}`)){
                                             filterMatch = true;
-                                            break;
+                                            filterNumber += 1;
                                         }
                                     }
                                 }
                                 
-                                if(filterMatch)
+                                if(filterMatch && filterNumber == filter.length)
                                 return (
                                     <Card className="border max-w-sm border-black rounded-none flex flex-col justify-between" key={index}>
                                         <div>
