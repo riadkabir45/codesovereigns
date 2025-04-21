@@ -42,7 +42,7 @@ export const getProductByCategory = async (req, res) => {
 
 export const getProductCategory = async (req, res) => {
   try {
-    console.log('Ok was called');
+    // console.log('Ok was called');
       const category = await getProductCategoryService();
       res.status(200).json({success: true, data: category});
     } catch (error) {
