@@ -1,50 +1,46 @@
-import Userer from '../model/User.js'
+import prisma from "../config/index.js";
+import errorHandler from "../utils/errorHandler.js";
 
-let User;
-
-async function generateUserInstance(){
-    if(!User){
-        User = await Userer();
-    }
-}
-
-export const createUser = async (username,password) => {
-    await generateUserInstance();
-    await User.create({username,password});
-}
+export const createUser = async (username, password) => {
+  const updateUser = await prisma.user.create({
+    data: {
+      username,
+      password,
+    },
+  });
+  return updateUser;
+};
 
 export const getUsers = async () => {
-    await generateUserInstance();
-    try {
-        const users = await User.findAll();
-        return users;
-      } catch (error) {
-        return null;
-      }
-}
+  const users = await errorHandler(prisma.user.findMany());
+  return users;
+};
 
 export const getUser = async (username) => {
-    await generateUserInstance();
-    try {
-        const user = await User.findOne({
-            where: { username }
-        });
-        return user;
-      } catch (error) {
-        return null;
-      }
-}
+  const user = await errorHandler(
+    prisma.user.findUnique({
+      where: {
+        username,
+      },
+      include: {
+        cart: true,
+        orders: true,
+      },
+    })
+  );
+  return user;
+};
 
-export const updateUserPassword = async (username,password) => {
-    await generateUserInstance();
-    try {
-        const user = await User.findOne({
-            where: { username }
-        });
-        await user.update({ password });
-        user.save();
-        return user;
-      } catch (error) {
-        return null;
-      }
-}
+export const updateUserPassword = async (username, password) => {
+  const user = await errorHandler(
+    prisma.user.update({
+      where: {
+        username,
+      },
+      data: {
+        password,
+      },
+    })
+  );
+  return user;
+};
