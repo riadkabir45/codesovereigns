@@ -1,13 +1,13 @@
 import prisma from "../config/index.js";
 import errorHandler from "../utils/errorHandler.js";
 
-export const createUser = async (username, password) => {
-  const updateUser = await prisma.user.create({
-    data: {
-      username,
-      password,
-    },
-  });
+export const createUser = async (data) => {
+  console.log(data);
+  const updateUser = await errorHandler(
+    prisma.user.create({
+      data,
+    })
+  );
   return updateUser;
 };
 
