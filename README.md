@@ -13,7 +13,6 @@
   - [Prisma Setup](#prisma-setup)
   - [Populate Database](#populate-database)
   - [Start the Server](#start-the-server)
-  - [Contributing] (#contributing)
 
 ---
 
