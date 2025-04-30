@@ -32,16 +32,23 @@ function ProductDisplay() {
 
   if (productInfo != null)
     return (
-      <>
-        <div className="grow flex flex-col items-center justify-center lg:flex-row p-10 gap-5">
+      <section className="flex flex-col gap-5 w-full justify-center items-center p-10">
+        <div className="grow flex flex-col items-center justify-center lg:flex-row gap-5">
           <img
-            className="h-full w-auto border border-black p-5"
+            className="border rounded-lg shadow-lg w-72 h-72  sm:w-96 sm:h-96 object-cover p-1 sm:p-3 md:p-5"
             src={productInfo.image}
             alt={productInfo.name}
           />
           <div className="max-w-xl flex flex-col gap-5 break-words">
-            <span className="text-xl font-bolder">{productInfo.name}</span>
-            <span className="text-3xl">{productInfo.price}</span>
+            <span className="text-3xl font-extrabold capitalize">{productInfo.name}</span>
+            <div className="flex gap-5 flex-wrap">
+              <span className="bg-gray-300 rounded p-2">
+                {productInfo.price}
+              </span>
+              <span className="bg-gray-300 rounded p-2">
+                {productInfo.category}
+              </span>
+            </div>
             <span className="text-lg text-slate-500">
               {productInfo.description}
             </span>
@@ -62,29 +69,21 @@ function ProductDisplay() {
                 </button>
               </Button>
             )}
-            <ScrollArea className="lg:h-52">
-              {Object.entries(productInfo.features).map(([index, feature]) => (
-                <div key={index}>
-                  <span className="block">{feature[0]} </span>
-                  <span className="text-slate-500">{feature[1]}</span>
-                  <br /> <br />
-                </div>
-              ))}
-            </ScrollArea>
           </div>
-
-          {/* <div className="flex flex-col gap-5 p-10 max-w-5xl mx-auto">
-            {
-              Object.entries(productInfo.features).map(([index,feature]) => (
-                  <div className="" key={index}>
-                      <span className="text-3xl font-bolder">{feature[0]}</span><br />
-                      <span className="text-slate-600">{feature[1]}</span>
-                  </div>
-              ))
-            }
-          </div> */}
         </div>
-      </>
+        <div className="flex flex-col bg-slate-100 w-auto rounded-lg p-5 gap-5 max-w-4xl">
+          <h2 className="text-xl my-5 font-bold">Features</h2>
+          <div className="">
+            {Object.entries(productInfo.features).map(([index, feature]) => (
+              <div key={index}>
+                <span className="">{feature[0]} </span>
+                <span className="text-slate-500">{feature[1]}</span>
+                <br /> <br />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   else return <span>Data not found</span>;
 }

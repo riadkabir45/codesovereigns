@@ -56,12 +56,15 @@ export const addUpdateCart = async (req, res) => {
         productId,
         price: productPrice,
       },
+      
     });
   } else {
     cartItem = await prisma.cart.update({
       where: { id: cartItem.id },
       data: {
-        quantity: cartItem.quantity + 1,
+        quantity: {
+          increment: 1,
+        },
         price: {
           increment: productPrice,
         },
