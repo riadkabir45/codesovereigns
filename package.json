@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Learnathon-By-Geeky-Solutions/codesovereigns#readme",
   "dependencies": {
+    "axios": "^1.9.0",
     "concurrently": "^9.1.2"
   }
 }
