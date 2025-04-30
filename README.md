@@ -13,14 +13,13 @@
   - [Prisma Setup](#prisma-setup)
   - [Populate Database](#populate-database)
   - [Start the Server](#start-the-server)
+  - [Contributing] (#Contributing)
 
 ---
 
 ## Project Description
 
 CodeSovereigns presents a complete e-commerce website for electronic products like laptops, mobiles, monitors, keyboards, and more. The homepage features clear navigation with dedicated sections for each category. A product filter helps users find items based on their preferences. Customers can browse products, view details, and add them to a cart or wishlist. User accounts allow login and easy preference management.
-
-The website is built using a modern tech stack including React.js for the frontend, Node.js and Express.js for the backend, and PostgreSQL for the database. We also used Vite and other essential tools to ensure a fast and responsive user experience.
 
 ---
 
