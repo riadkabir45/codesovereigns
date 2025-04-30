@@ -1,43 +1,100 @@
-# codesovereigns
+# CodeSovereigns
 
-## Team Members
-- injaamam (Team Leader)
-- riadkabir45
-- mony820
+## Table of Contents
 
-Hello!
+- [Project Description](#project-description)
+- [Tech Stack](#tech-stack)
+- [Team Members](#team-members)
+- [Mentor](#mentor)
+- [Getting Started](#getting-started)
+  - [Clone the Repository](#clone-the-repository)
+  - [Install Dependencies](#install-dependencies)
+  - [Database Setup](#database-setup)
+  - [Prisma Setup](#prisma-setup)
+  - [Populate Database](#populate-database)
+  - [Start the Server](#start-the-server)
 
-## Mentor
-- naimjeem
+---
 
 ## Project Description
-A premier online retailer specializing in the provision of high-quality computer components. We offer a comprehensive selection of CPUs, GPUs, motherboards, RAM, storage drives, peripherals, and cooling solutions from leading manufacturers. Our commitment to customer satisfaction is reflected in our competitive pricing, informative product descriptions, and exceptional customer support.
+
+CodeSovereigns presents a complete e-commerce website for electronic products like laptops, mobiles, monitors, keyboards, and more. The homepage features clear navigation with dedicated sections for each category. A product filter helps users find items based on their preferences. Customers can browse products, view details, and add them to a cart or wishlist. User accounts allow login and easy preference management.
+
+The website is built using a modern tech stack including React.js for the frontend, Node.js and Express.js for the backend, and PostgreSQL for the database. We also used Vite and other essential tools to ensure a fast and responsive user experience.
+
+---
+
+## Tech Stack
+
+- **Frontend:** React.js
+- **Backend:** Node.js, Express.js
+- **Database:** PostgreSQL
+- **Build Tool:** Vite
+- **Other Tools:** Prisma, npm
+
+---
+
+## Team Members
+
+- **injaamam** (Team Leader)
+- **riadkabir45**
+- **mony820**
+
+---
+
+## Mentor
+
+- **naimjeem**
+
+---
 
 ## Getting Started
-1. Clone the repository
-2. Install dependencies
-3. Start development
 
-## Development Guidelines
-1. Create feature branches
-2. Make small, focused commits
-3. Write descriptive commit messages
-4. Create pull requests for review
+### Clone the Repository
 
-## Resources
-- [Project Documentation](docs/)
-- [Development Setup](docs/setup.md)
-- [Contributing Guidelines](CONTRIBUTING.md)
+```bash
+git clone <repository-url>
+```
 
-## To create DB:
-create user soverign with password 'postgressoverign';
-create database soverign owner soverign;
+### Install Dependencies
 
-## Custom command for installing all packages:
+```bash
 npm run install:all
+```
 
-## To populate DB:
+### Database Setup
+
+1. Open the `psql` shell.
+2. Run the following commands:
+   ```sql
+   CREATE USER soverign WITH PASSWORD 'postgressoverign';
+   CREATE DATABASE soverign OWNER soverign;
+   ```
+
+### Prisma Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Run the following commands:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev
+   ```
+
+### Populate Database
+
+```bash
 npm run dinit
+```
 
-## To start server:
+### Start the Server
+
+```bash
 npm run dev
+```
+
+## Contributing
+
+We welcome contributions of all kinds! Whether it's fixing bugs, improving documentation, adding new features, or suggesting ideas, your help is greatly appreciated. Any type of contribution, big or small, is valued. Just send a pull request.
