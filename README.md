@@ -13,7 +13,6 @@
   - [Prisma Setup](#prisma-setup)
   - [Populate Database](#populate-database)
   - [Start the Server](#start-the-server)
-  - [Contributing] (#Contributing)
 
 ---
 
@@ -94,6 +93,6 @@ npm run dinit
 npm run dev
 ```
 
-## Contributing
+### Contributing
 
 We welcome contributions of all kinds! Whether it's fixing bugs, improving documentation, adding new features, or suggesting ideas, your help is greatly appreciated. Any type of contribution, big or small, is valued. Just send a pull request.
