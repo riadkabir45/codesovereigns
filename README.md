@@ -96,3 +96,5 @@ npm run dev
 ### Contributing
 
 We welcome contributions of all kinds! Whether it's fixing bugs, improving documentation, adding new features, or suggesting ideas, your help is greatly appreciated. Any type of contribution, big or small, is valued. Just send a pull request.
+
+![x](https://github.com/user-attachments/assets/21e020ea-3a08-4f3b-a7c7-2c444ef7a80b)
