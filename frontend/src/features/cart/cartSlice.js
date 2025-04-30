@@ -8,8 +8,13 @@ import {
 
 const initialState = {
   value: {
-    cart: [],
+    id: "",
+    userId: "",
+    status: "UNPAID",
     total: 0,
+    createdAt: "",
+    updatedAt: "",
+    cart: [],
   },
   isLoading: false,
   isError: false,
