@@ -13,8 +13,9 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "nodemon server.js",
     "dinit": "node dataSeeds.js",
     "test": "jest",
