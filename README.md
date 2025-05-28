@@ -80,6 +80,7 @@ npm run install:all
    npx prisma generate
    npx prisma migrate dev
    ```
+3. Update the `DATABASE_URL` variable in the `.env` file by replacing `the password` with your PostgreSQL password.
 
 ### Populate Database
 

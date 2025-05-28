@@ -1,0 +1,19 @@
+# Changed things before deploying,
+
+frontend/.env
+VITE_BACKEND_URL=https://your-backend-domain.com/api
+
+frontend/netlify.toml
+added netlify.toml file
+
+backend/.env
+added Credins for render.com
+
+
+# To push database to render.com
+
+cd backend,
+
+npx prisma migrate deploy
+npx prisma generate
+npm run dinit

@@ -7,7 +7,11 @@ export const getUserOrders = async (req, res) => {
     prisma.order.findMany({
       where: { userId },
       include: {
-        cart: true,
+        cart: {
+          include: {
+            product: true,
+          },
+        },
       },
     })
   );
@@ -23,7 +27,11 @@ export const getUnpaidOrder = async (req, res) => {
     prisma.order.findFirst({
       where: { userId, status: "UNPAID" },
       include: {
-        cart: true,
+        cart: {
+          include: {
+            product: true,
+          },
+        },
       },
     })
   );

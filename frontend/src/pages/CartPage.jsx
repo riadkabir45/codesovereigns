@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router";
 
 const CartPage = () => {
   const { cart, ...order } = useSelector((state) => state?.cart?.value);
@@ -25,9 +26,11 @@ order: {
       {cart.length > 0 ? (
         cart.map((item) => (
           <div key={item.id} className="flex flex-col gap-2 border p-5 w-full">
-            <span>Product ID: {item.productId}</span>
+            <NavLink to={`/product/${item.productId}`}>
+              <span>{item?.product?.name || item.productId}</span>
+            </NavLink>
             <span>Quantity: {item.quantity}</span>
-            <span>Price: {item.price}</span>
+            <span>Cost: {item.price}</span>
           </div>
         ))
       ) : (
@@ -35,7 +38,7 @@ order: {
       )}
       <h1 className="text-3xl font-bold">Your Order</h1>
       <div className="flex flex-col gap-2 border p-5 w-full">
-        <span>Order ID: {order.id}</span>
+        <span>Order time: {new Date(order.createdAt).toLocaleString()}</span>
         <span>Status: {order.status}</span>
         <span>Total: {order.total}</span>
       </div>
